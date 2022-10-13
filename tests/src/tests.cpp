@@ -1,31 +1,29 @@
-#define CATCH_CONFIG_MAIN // This tells Catch to provide a main() - only do this in one cpp file
+#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do
+                           // this in one cpp file
 #include "catch.hpp"
 
-extern "C"
-{
+extern "C" {
 #include "stack.h"
 #include "taylor_sine.h"
 }
 
-// See Catch2's documentation: https://github.com/catchorg/Catch2/blob/devel/docs/tutorial.md#scaling-up
+// See Catch2's documentation:
+// https://github.com/catchorg/Catch2/blob/devel/docs/tutorial.md#scaling-up
 
-TEST_CASE("taylor_sine")
-{
-    REQUIRE_THAT(taylor_sine(3.1415, 4),
-        Catch::Matchers::WithinRel(0.000093, 0.05));
+TEST_CASE("taylor_sine") {
+    REQUIRE_THAT(taylor_sine(3.1415, 8),
+                 Catch::Matchers::WithinRel(0.000093, 0.05));
 
     REQUIRE_THAT(taylor_sine(1.57075, 10),
-        Catch::Matchers::WithinRel(0.999944, 0.05));
+                 Catch::Matchers::WithinRel(0.999944, 0.05));
 
-    REQUIRE_THAT(taylor_sine(0, 1),
-        Catch::Matchers::WithinRel(0, 0.05));
-    
+    REQUIRE_THAT(taylor_sine(0, 1), Catch::Matchers::WithinRel(0, 0.05));
 }
 
-TEST_CASE("stack"){
+TEST_CASE("stack") {
     stack s;
     initialize(&s);
-    REQUIRE(s.head == NULL);
+    REQUIRE(s.head == (node*)NULL);
 
     stack sb0;
     initialize(&sb0);
@@ -49,5 +47,4 @@ TEST_CASE("stack"){
     REQUIRE(x1 == y0);
     REQUIRE(x0 == y1);
     REQUIRE(sc0.head == sc1.head);
-
 }
